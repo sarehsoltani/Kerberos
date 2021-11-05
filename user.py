@@ -26,8 +26,8 @@ class User:
         line. Call getFile method from fileserver providing appropriate 
         parameters. Hint: One line code is enough. No Return.
         """
-        None # callgetFile method here
-
+        #None # callgetFile method here
+        file_server.FileServer.getFile(self.userName, f)
     
 
 
