@@ -9,6 +9,8 @@ import shared_secret_key
 class FileServer:
     def __init__(self):
         self.TGS = ticket_granting_service.TGS()
+        self.ShareKey = shared_secret_key.SHARED_KEY_BTN_TGS_FS
+
     """
     This method takes a user object and requested file as input.
     It checks whether the user is authenticated to get
@@ -22,21 +24,22 @@ class FileServer:
     @param user user who sends the request
     @param f required file
     """
+
     def getFile(self, user, f):
         """
         Implementation Here.
         Complete following three lines of code. Replace None with correct statements on each line.
         """
-        token = None                      #Call function from user to get an authenticated key by KDC.
-        if None:                          #Change condition to check if token was recieved 
-            decryptedToken = None         #Call proper function to decrypt the token.
-            if None:                      #Update the if condition to see weather the decrypted token in TGS TOKEN list or not. 
+        token = None  # Call function from user to get an authenticated key by KDC.
+        if None:  # Change condition to check if token was recieved
+            decryptedToken = None  # Call proper function to decrypt the token.
+            if None:  # Update the if condition to see weather the decrypted token in TGS TOKEN list or not.
                 print(user.getUserName() + " is Authorized")
             else:
                 print(user.getUserName() + " is Unauthorized")
         else:
             print(user.getUserName() + " is Unauthorized")
-    
+
     """
     This method decrypts the token and converts it into an
     actual token using the key shared with the ticket granting service
@@ -44,6 +47,7 @@ class FileServer:
     @param token encrypted token
     @return decrypted token.
     """
+
     def decryptTokenToInt(self, token):
         """
         Implementation Here. Replace None with correct statements on each 
@@ -51,5 +55,10 @@ class FileServer:
         *Hint: see from_bytes() here: 
         https://docs.python.org/3/library/stdtypes.html
         """
-        bais = None     #Use bais to create/hold decrypted token
-        return bais     #return decrypted token
+        encryptedToken = int.from_bytes(token, 'big')
+        bais = encryptedToken - self.ShareKey  # Use bais to create/hold decrypted token
+        print("bias", bais)
+        return bais  # return decrypted token
+
+
+k = FileServer().decryptTokenToInt(b'\x01\xac\x99')
