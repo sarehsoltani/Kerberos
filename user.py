@@ -58,8 +58,8 @@ class User:
         You have to just call proper function to assign the new value.
         """
         encryptedUserName = self.encryptUserInfo(self.getUserName())  # Step 1: Call encrypt function with proper parameter.
-        encryptedTGT = None  # Step 2: Send encrypted user name to AS for authentication.
-        token = None  # Send encryptedTGT to TGS for authentication. Call proper function
+        encryptedTGT = self.AS.authenticate(encryptedUserName)  # Step 2: Send encrypted user name to AS for authentication.
+        token = self.TGS.authenticateTGT(encryptedTGT)  # Send encryptedTGT to TGS for authentication. Call proper function
         return token  # Return the token
 
     """
@@ -76,11 +76,11 @@ class User:
         encryptedUserName = ""  # variable used to create/hold encrypted user name
         # Convert to ascii and shift by SHARED_KEY_BTN_USER_AS
         for letter in username:
-            asciiVal_Char = ord(letter) + self.SSK  # convert to ascii and shift by 1
+            asciiVal_Char = ord(letter) + self.SSK
             asciiVal_Characters.append(asciiVal_Char)
         # Convert to string after shifting
         for i in asciiVal_Characters:
-            encryptedUserName += (chr(i))  # convert back to string and store in another list
+            encryptedUserName += (chr(i))
         print(encryptedUserName, end=" ")
 
         return encryptedUserName
