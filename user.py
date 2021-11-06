@@ -8,28 +8,28 @@ import shared_secret_key
 import authentication_service
 import ticket_granting_service
 
+
 class User:
     def __init__(self):
         self.userName = None
         self.AS = authentication_service.AS()
         self.TGS = ticket_granting_service.TGS()
-        self.SSK = shared_secret_key.SHARED_KEY_BTN_USER_AS #Secret key shared between user and authentication server
+        self.SSK = shared_secret_key.SHARED_KEY_BTN_USER_AS  # Secret key shared between user and authentication server
 
     """
     This function sends a request to the file server to access a specific file. 
     @param fs file server reference
     @param f file reference
     """
+
     def sendRequest(self, fs, f):
         """
         Implementation goes Here. Replace None with correct statements on each
         line. Call getFile method from fileserver providing appropriate 
         parameters. Hint: One line code is enough. No Return.
         """
-        #None # callgetFile method here
+        # None # callgetFile method here
         file_server.FileServer.getFile(self.userName, f)
-    
-
 
     """
     This method generates an encrypted user name and password to send to
@@ -50,17 +50,18 @@ class User:
         4) Return the aquired token
     @return token from TGS
     """
+
     def getAuthenticatedKeyByKDC(self):
         """
         Implementation Here. Replace None with correct statements on each line.
         Hint: Variables are initialize with default value.
         You have to just call proper function to assign the new value.
         """
-        encryptedUserName = None # Step 1: Call encrypt function with proper parameter.
-        encryptedTGT =  None     # Step 2: Send encrypted user name to AS for authentication. 
-        token =  None            # Send encryptedTGT to TGS for authentication. Call proper function
-        return token             # Return the token
-    
+        encryptedUserName = self.encryptUserInfo(self.getUserName())  # Step 1: Call encrypt function with proper parameter.
+        encryptedTGT = None  # Step 2: Send encrypted user name to AS for authentication.
+        token = None  # Send encryptedTGT to TGS for authentication. Call proper function
+        return token  # Return the token
+
     """
     This method takes the username as input for the encryption. The encryption 
     formula as follow: 
@@ -69,28 +70,34 @@ class User:
     @param value the actual message
     @return encrypted message
     """
-    def encryptUserInfo(self, username):
 
-        """
-        Implementation Here. Read the provided document
-        carefully before implementing. 
-         
-        Hint: Encryption formula explained in the assignment document.
-        """
-        encryptedUserName = "" #variable used to create/hold encrypted user name
+    def encryptUserInfo(self, username):
+        asciiVal_Characters = []
+        encryptedUserName = ""  # variable used to create/hold encrypted user name
+        # Convert to ascii and shift by SHARED_KEY_BTN_USER_AS
+        for letter in username:
+            asciiVal_Char = ord(letter) + self.SSK  # convert to ascii and shift by 1
+            asciiVal_Characters.append(asciiVal_Char)
+        # Convert to string after shifting
+        for i in asciiVal_Characters:
+            encryptedUserName += (chr(i))  # convert back to string and store in another list
+        print(encryptedUserName, end=" ")
+
         return encryptedUserName
 
     """
     Getter method for the userName field.
     @return user name 
     """
-    def  getUserName(self):
+
+    def getUserName(self):
         return self.userName
 
     """
     Setter method for the userName field.
     @param userName user name
     """
+
     def setUserName(self, username):
         self.userName = username
-    
+
