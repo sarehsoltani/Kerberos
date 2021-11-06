@@ -13,6 +13,7 @@ class TGS:
     def __init__(self):
         self.TGT = [12121, 123312, 87542, 5689898,124546]       #VALID TGTs
         self.TOKEN = [14586, 41258, 14589, 54852, 54863]        #VALID TOKENS
+        self.ShareKey = shared_secret_key.SHARED_KEY_BTN_TGS_FS
 
     """
     This method checks the authenticity of the TGT. See inline comments
@@ -25,9 +26,9 @@ class TGS:
         Implementation Here. Replace None with correct statements on each 
         line.        
         """
-        if None:                    # Update if statement to check weather tgt in TGT list or not. 
-            index = None            # create a random index
-            token = None            # use index to retrieve a TOKEN
+        if tgt in self.TGT:  # Update if statement to check weather tgt in TGT list or not.
+            index = random.randrange(0, 4)         # create a random index
+            token = self.TOKEN[index]              # use index to retrieve a TOKEN
             encryptedToken =  None  #Call proper method method to encrypt the token. 
             return encryptedToken   #return the encrypted token.
         else:
@@ -46,6 +47,6 @@ class TGS:
         Implementation Here. Replace None with correct statements on each line.
         Read the provided document carefully before implementing. 
         """
-        encryptedToken = None #encrypt the token here
+        encryptedToken = (token + self.ShareKey).to_bytes() #encrypt the token here
  
         return encryptedToken #return encrypted token
