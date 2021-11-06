@@ -8,10 +8,12 @@ import dataset
 import random
 import ticket_granting_service
 
+
 class AS:
     def __init__(self):
-        self.SSK = shared_secret_key.SHARED_KEY_BTN_USER_AS  #Secret key shared between user and authentication server
-        self.TGS = ticket_granting_service.TGS()  #Ticket granting service object, used to access the TGT list
+        self.SSK = shared_secret_key.SHARED_KEY_BTN_USER_AS  # Secret key shared between user and authentication server
+        self.TGS = ticket_granting_service.TGS()  # Ticket granting service object, used to access the TGT list
+
     """
     This method authenticates the encrypted user name and returns a TGT to 
     the user. Use the following steps to complete this method:
@@ -28,18 +30,18 @@ class AS:
     @param encryptedUserName encrypted user name
     @return tgt if authentication successful otherwise return 0
     """
+
     def authenticate(self, encryptedUserName):
         """
         Implementation Here. Replace None with correct statements on each line. 
         """
-        decryptedUserName = None    # Decrypt the passed encrypted username
-        if None:                    # Update the condition in the if statement.You need to check whether our Dataset's USER_LIST contains the decryptedUserName or not. 
-            index = None            # Generate random index fulfilling the above condition. 
-            tgt = None              # Use the index to access corresponding TGT from TGS. 
-            return tgt              # return tgt
+        decryptedUserName = None  # Decrypt the passed encrypted username
+        if None:  # Update the condition in the if statement.You need to check whether our Dataset's USER_LIST contains the decryptedUserName or not.
+            index = None  # Generate random index fulfilling the above condition.
+            tgt = None  # Use the index to access corresponding TGT from TGS.
+            return tgt  # return tgt
         else:
-            return None             # user not valid, return None
-    
+            return None  # user not valid, return None
 
     """
     This function decrypts the user information (username). 
@@ -48,11 +50,22 @@ class AS:
     @param value user information to be decrypted
     @return decrypted user name
     """
+
     def decryptUserInfo(self, value):
         """
         Implementation Here. Read the provided document
         carefully before implementing. 
         """
+        asciiVal_Characters = []
         decryptedUserInfo = ""
+        for letter in value:
+            asciiVal_Char = ord(letter) - self.SSK
+            asciiVal_Characters.append(asciiVal_Char)
+        # Convert to string after shifting
+        for i in asciiVal_Characters:
+            decryptedUserInfo += (chr(i))
+        print(decryptedUserInfo, end=" ")
+        return decryptedUserInfo  # return the decryptedUserInfo
 
-        return decryptedUserInfo  #return the decryptedUserInfo
+
+k = AS().decryptUserInfo('BC')

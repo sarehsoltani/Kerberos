@@ -73,7 +73,7 @@ class User:
 
     def encryptUserInfo(self, username):
         asciiVal_Characters = []
-        encryptedUserName = ""  # variable used to create/hold encrypted user name
+        encryptedUserName = ""
         # Convert to ascii and shift by SHARED_KEY_BTN_USER_AS
         for letter in username:
             asciiVal_Char = ord(letter) + self.SSK
