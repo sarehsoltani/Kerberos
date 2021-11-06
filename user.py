@@ -29,7 +29,7 @@ class User:
         parameters. Hint: One line code is enough. No Return.
         """
         # None # callgetFile method here
-        file_server.FileServer.getFile(self.userName, f)
+        file_server.FileServer().getFile(self, f)
 
     """
     This method generates an encrypted user name and password to send to
@@ -81,7 +81,7 @@ class User:
         # Convert to string after shifting
         for i in asciiVal_Characters:
             encryptedUserName += (chr(i))
-        print(encryptedUserName, end=" ")
+        #print(encryptedUserName, end=" ")
 
         return encryptedUserName
 

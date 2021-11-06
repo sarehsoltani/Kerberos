@@ -4,6 +4,7 @@
 """
 import ticket_granting_service
 import shared_secret_key
+import user
 
 
 class FileServer:
@@ -30,10 +31,10 @@ class FileServer:
         Implementation Here.
         Complete following three lines of code. Replace None with correct statements on each line.
         """
-        token = None  # Call function from user to get an authenticated key by KDC.
-        if None:  # Change condition to check if token was recieved
-            decryptedToken = None  # Call proper function to decrypt the token.
-            if None:  # Update the if condition to see weather the decrypted token in TGS TOKEN list or not.
+        token = user.getAuthenticatedKeyByKDC()  # Call function from user to get an authenticated key by KDC.
+        if token:  # Change condition to check if token was recieved
+            decryptedToken = self.decryptTokenToInt(token)  # Call proper function to decrypt the token.
+            if decryptedToken in self.TGS.TOKEN:  # Update the if condition to see weather the decrypted token in TGS TOKEN list or not.
                 print(user.getUserName() + " is Authorized")
             else:
                 print(user.getUserName() + " is Unauthorized")
@@ -57,8 +58,9 @@ class FileServer:
         """
         encryptedToken = int.from_bytes(token, 'big')
         bais = encryptedToken - self.ShareKey  # Use bais to create/hold decrypted token
-        print("bias", bais)
+        #print("bias", bais)
         return bais  # return decrypted token
 
 
 k = FileServer().decryptTokenToInt(b'\x01\xac\x99')
+
