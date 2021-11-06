@@ -47,6 +47,7 @@ class TGS:
         Implementation Here. Replace None with correct statements on each line.
         Read the provided document carefully before implementing. 
         """
-        encryptedToken = (token + self.ShareKey).to_bytes() #encrypt the token here
- 
+        changedToken = token + self.ShareKey
+        encryptedToken = changedToken.to_bytes((changedToken.bit_length() + 7) // 8, 'big')   #encrypt the token here
+        x.to_bytes((x.bit_length() + 7) // 8, 'big')
         return encryptedToken #return encrypted token
