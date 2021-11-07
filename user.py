@@ -28,7 +28,6 @@ class User:
         line. Call getFile method from fileserver providing appropriate 
         parameters. Hint: One line code is enough. No Return.
         """
-        # None # callgetFile method here
         file_server.FileServer().getFile(self, f)
 
     """
@@ -81,8 +80,6 @@ class User:
         # Convert to string after shifting
         for i in asciiVal_Characters:
             encryptedUserName += (chr(i))
-        #print(encryptedUserName, end=" ")
-
         return encryptedUserName
 
     """

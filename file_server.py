@@ -4,7 +4,6 @@
 """
 import ticket_granting_service
 import shared_secret_key
-import user
 
 
 class FileServer:
@@ -58,9 +57,7 @@ class FileServer:
         """
         encryptedToken = int.from_bytes(token, 'big')
         bais = encryptedToken - self.ShareKey  # Use bais to create/hold decrypted token
-        #print("bias", bais)
         return bais  # return decrypted token
 
 
-k = FileServer().decryptTokenToInt(b'\x01\xac\x99')
 

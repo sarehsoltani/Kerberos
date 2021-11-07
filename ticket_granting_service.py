@@ -31,9 +31,7 @@ class TGS:
         if tgt in self.TGT:  # Update if statement to check weather tgt in TGT list or not.
             index = random.randrange(0, 4)  # create a random index
             token = self.TOKEN[index]  # use index to retrieve a TOKEN
-            #print("tocken", token)
             encryptedToken = self.encryptTokenToByte(token)  # Call proper method method to encrypt the token.
-           # print("Enc token", encryptedToken)
             return encryptedToken  # return the encrypted token.
         else:
             return None  # TGT not valid, return None
